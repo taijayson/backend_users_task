@@ -1,0 +1,29 @@
+{
+  "name": "backend_users_task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taijayson/backend_users_task.git"
+  },
+  "keywords": [],
+  "author": "taijayson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taijayson/backend_users_task/issues"
+  },
+  "homepage": "https://github.com/taijayson/backend_users_task#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
