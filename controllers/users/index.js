@@ -1,5 +1,4 @@
-const users = require('./allRes')
+const login = require('./login');
+const register = require('./register');
 
-module.exports = {users}
-    
-
+module.exports = { login, register };

@@ -1,36 +1,48 @@
-const db = require('../../db/db')
+const db = require('../../db/db');
 
-const createUser = async (req,res,next)=>{
-const {name, password,status} = req.body
-const newUser = await db.query(`INSERT INTO ${status} (name, password) values ($1, $2) RETURNING *`, [name, password])
-res.status(201).json({
-    code:201,
-    data:newUser.rows[0],
-    message:`Welcome ${name}`
-})
-}
+const getAllUsers = async (req, res, next) => {
+  const { status } = req.params;
+  const users = await db.query(`SELECT * from ${status}`);
+  res.status(200).json({
+    code: 200,
+    data: users.rows,
+  });
+};
 
-const getAllUsers = async (req,res,next)=>{
-    const {status} = req.query
-const users = await db.query(`SELECT * from ${status}`)
-res.status(200).json({
-    code:200,
-    data:users.rows, 
-})
-}
+const getOneUser = async (req, res, next) => {
+  const { id, status } = req.params;
+  const user = await db.query(`SELECT * from ${status} where id=$1`, [id]);
+  res.status(200).json({
+    code: 200,
+    data: user.rows[0],
+  });
+};
 
-const getOneUser = async (req,res,next)=>{
+const updateUser = async (req, res, next) => {
+  const { name, password } = req.body;
+  const updatedUser = await db.query(
+    `UPDATE ${status} set name = $1, password = $2, status = $3 where id = $4 RETURNING *`,
+    [name, password, status, id]
+  );
+  res.status(201).json({
+    code: 201,
+    data: updatedUser.rows[0],
+    message: `Take your changes, ${name}`,
+  });
+};
 
-}
-
-const updateUser = async (req,res,next)=>{
-
-}
-
-const deleteUser = async (req,res,next)=>{
-
-}
+const deleteUser = async (req, res, next) => {
+  const { id, status } = req.params;
+  await db.query(`DELETE from ${status} where id=$1`, [id]);
+  res.status(200).json({
+    code: 204,
+    message: 'Successfully del',
+  });
+};
 
 module.exports = {
-    createUser,getAllUsers,getOneUser,updateUser,deleteUser
+  getAllUsers,
+  getOneUser,
+  updateUser,
+  deleteUser,
 };
