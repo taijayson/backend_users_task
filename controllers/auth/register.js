@@ -17,7 +17,7 @@ const createUser = async (req, res, next) => {
       );
       const allBossNames = allBoss.rows.map((item) => item.name);
       return res.status(400).json({
-        status: 'fail',
+        status: 'bad request',
         code: 400,
         bosses: allBossNames,
         message:
@@ -30,7 +30,7 @@ const createUser = async (req, res, next) => {
 
     if (user.rows.length > 0) {
       return res.status(400).json({
-        status: 'fail',
+        status: 'bad request',
         code: 400,
         message: `User name ${name} already exist`,
       });
@@ -54,7 +54,7 @@ const createUser = async (req, res, next) => {
         code: 200,
         data: {
           token,
-          user: admin.rows,
+          user: admin.rows[0],
           users: allUsers.rows,
         },
         message: `Welcome, admin ${name}`,
@@ -82,7 +82,7 @@ const createUser = async (req, res, next) => {
         code: 200,
         data: {
           token,
-          user: boss.rows,
+          user: boss.rows[0],
           regulars: allRegulars.rows,
         },
         message: `Welcome, boss ${name}`,

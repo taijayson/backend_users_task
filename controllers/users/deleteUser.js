@@ -5,9 +5,9 @@ const deleteUser = async (req, res, next) => {
     const { status } = req.user.rows[0];
 
     if (status !== 'admin') {
-      return res.status(400).json({
-        status: 'fail',
-        code: 400,
+      return res.status(403).json({
+        status: 'forbidden',
+        code: 403,
         message: 'Only admin can delete user from base',
       });
     }
@@ -20,9 +20,9 @@ const deleteUser = async (req, res, next) => {
 
     if (!user.rows[0]) {
       return res.status(400).json({
-        status: 'fail',
+        status: 'bad request',
         code: 400,
-        message: 'User not found, need correct userId in /delete/userId',
+        message: 'User not found, need correct userId in /delete/:userId',
       });
     }
 

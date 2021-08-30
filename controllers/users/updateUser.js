@@ -5,9 +5,9 @@ const updateUser = async (req, res, next) => {
     const { name, status } = req.user.rows[0];
 
     if (status !== 'boss') {
-      return res.status(400).json({
-        status: 'fail',
-        code: 400,
+      return res.status(403).json({
+        status: 'forbidden',
+        code: 403,
         message: 'Only boss can change user boss_name',
       });
     }
@@ -20,9 +20,9 @@ const updateUser = async (req, res, next) => {
     );
 
     if (regularUser.rows[0].boss_name !== name) {
-      return res.status(400).json({
-        status: 'fail',
-        code: 400,
+      return res.status(403).json({
+        status: 'forbidden',
+        code: 403,
         message:
           'Boss can change user boss_name only for his own regulars',
       });
@@ -36,8 +36,8 @@ const updateUser = async (req, res, next) => {
     res.status(201).json({
       status: 'ok',
       code: 201,
-      data: updatedUser.rows[0],
-      message: `Take your changes, ${name}`,
+      regular: updatedUser.rows[0],
+      message: `${updatedUser.rows[0].name} boss changed from ${regularUser.rows[0].boss_name} to ${updatedUser.rows[0].boss_name}`,
     });
   } catch (error) {
     next(error);

@@ -7,7 +7,7 @@ const loginUser = async (req, res, next) => {
     const { name, password } = req.body;
     if (!name || !password) {
       return res.status(400).json({
-        status: 'fail',
+        status: 'bad request',
         code: 400,
         message: `Need name and password`,
       });
@@ -19,7 +19,7 @@ const loginUser = async (req, res, next) => {
 
     if (!user.rows.length) {
       return res.status(400).json({
-        status: 'fail',
+        status: 'bad request',
         code: 400,
         message: `User not registered`,
       });
@@ -27,6 +27,7 @@ const loginUser = async (req, res, next) => {
 
     if (user.rows[0].password !== password) {
       return res.status(400).json({
+        status: 'bad request',
         code: 400,
         message: `Incorrect password`,
       });
