@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const useAuth = require('../services/useAuth');
 
 const { users: ctrl } = require('../controllers');
 
-router.post('/register', ctrl.register);
+router.patch('/changeboss', useAuth, ctrl.updateUser);
 
-router.post('/login', ctrl.login);
-
-// router.get('/:status/:id', ctrl.getOneUser);
-
-// router.patch('/:status/:id', ctrl.updateUser);
-
-// router.delete('/:status/:id', ctrl.deleteUser);
+router.delete('/delete/:userId', useAuth, ctrl.deleteUser);
 
 module.exports = router;

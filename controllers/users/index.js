@@ -1,4 +1,4 @@
-const login = require('./login');
-const register = require('./register');
+const updateUser = require('./updateUser');
+const deleteUser = require('./deleteUser');
 
-module.exports = { login, register };
+module.exports = { deleteUser, updateUser };
